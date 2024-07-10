@@ -28,8 +28,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="banner relative bg-gradient-to-br from-[#FFFACD] to-[#FFF5E1] overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+    <div className="banner relative bg-[#F6F6F6] overflow-hidden">
       <motion.div
         className="banner container mx-auto px-6 py-12 sm:py-16 md:py-20 lg:py-24"
         variants={containerVariants}
@@ -59,11 +58,13 @@ const Banner = () => {
               or a keyboard enthusiast, discover unmatched quality and
               performance.
             </motion.p>
-            <motion.div
-              className="space-y-4 sm:space-y-0 sm:space-x-4"
-              variants={itemVariants}
-            >
-              <Button className="bg-teal-600 flex items-center gap-2">
+            <motion.div className="flex justify-center lg:justify-start">
+              <Button
+                onClick={() => {
+                  console.log("Button clicked");
+                }}
+                className="bg-[#023246] flex items-center gap-2 "
+              >
                 Explore Now <ArrowRight size={16} />
               </Button>
             </motion.div>

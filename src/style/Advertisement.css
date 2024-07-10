@@ -1,0 +1,24 @@
+.benefits-section {
+    padding: 3rem 1.5rem;
+  }
+  
+  .benefit-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .benefit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .benefit-item h3 {
+    margin-bottom: 0.5rem;
+  }
+  

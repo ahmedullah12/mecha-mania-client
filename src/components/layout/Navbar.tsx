@@ -24,7 +24,7 @@ export default function Navbar() {
   const activeLink = "border-b-4 border-white ";
 
   return (
-    <nav className="bg-[#EC873E] w-full fixed top-0 z-50 h-16">
+    <nav className="bg-[#287094] w-full fixed top-0 z-50 h-16">
       <div className="lg:container relative items-center px-4 md:flex md:justify-between">
         <div className="pt-2 md:pt-3 md:pb-5 flex items-center justify-between">
           <Link to="/" className="text-2xl md:text-3xl text-white font-semibold">

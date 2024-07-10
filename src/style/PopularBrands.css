@@ -1,0 +1,40 @@
+.wrapper {
+  margin-inline: auto;
+  position: relative;
+  height: 100px;
+  margin-top: 3rem;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 1) 80%,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+@keyframes scrollLeft {
+  to {
+    left: -200px;
+  }
+}
+
+.item {
+  width: 160px;
+  height: 80px;
+  border-radius: 6px;
+  position: absolute;
+  left: max(calc(160px * 8), 100%);
+  animation-name: scrollLeft;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (min-width: 768px) {
+  .item {
+    width: 200px;
+    height: 100px;
+    left: max(calc(200px * 8), 100%);
+  }
+}

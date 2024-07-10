@@ -1,12 +1,7 @@
-import { Button } from "./components/ui/button"
+import MainLayout from "./components/layout/MainLayout";
 
 function App() {
-
-  return (
-    <>
-     <Button variant="outline">Button</Button>
-    </>
-  )
+  return <MainLayout />;
 }
 
-export default App
+export default App;

@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import "../../style/Banner.css";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import PrimaryButton from "@/components/PrimaryButton";
+import { FaArrowRight } from "react-icons/fa6";
 
 const Banner = () => {
   const containerVariants = {
@@ -59,14 +58,7 @@ const Banner = () => {
               performance.
             </motion.p>
             <motion.div className="flex justify-center lg:justify-start">
-              <Button
-                onClick={() => {
-                  console.log("Button clicked");
-                }}
-                className="bg-[#023246] flex items-center gap-2 "
-              >
-                Explore Now <ArrowRight size={16} />
-              </Button>
+              <PrimaryButton value="Explore Now" link={`/products`} Icon={FaArrowRight}/>
             </motion.div>
           </div>
           <motion.div

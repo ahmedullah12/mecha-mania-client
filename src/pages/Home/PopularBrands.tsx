@@ -35,7 +35,7 @@ const data = [
 
 const PopularBrands = () => {
   return (
-    <div className="md:container mt-10 mb-7">
+    <div className="md:container my-10 md:my-20">
       <div>
         <h3 className="text-center text-xl md:text-2xl font-bold">Popular Keyboard Brands</h3>
       </div>

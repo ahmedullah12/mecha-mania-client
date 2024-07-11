@@ -3,6 +3,8 @@ import ProductCard from "@/components/Product/ProductCard";
 import { useGetAllProductsQuery } from "@/redux/features/Products/productsApi";
 import { TProduct } from "@/types/Product";
 import Loader from "@/components/Loader";
+import PrimaryButton from "@/components/PrimaryButton";
+import { FaArrowRight } from "react-icons/fa6";
 
 const Products = () => {
   const { data: products, isLoading } = useGetAllProductsQuery(undefined);
@@ -24,6 +26,9 @@ const Products = () => {
               <ProductCard product={product} />
             </motion.div>
           ))}
+        </div>
+        <div className="mt-10 mb-6 flex justify-center">
+          <PrimaryButton value="See More" link="/products" Icon={FaArrowRight}/>
         </div>
       </div>
     </div>

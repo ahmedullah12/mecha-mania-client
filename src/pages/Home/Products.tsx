@@ -1,17 +1,33 @@
+import { motion } from "framer-motion";
+import ProductCard from "@/components/Product/ProductCard";
 import { useGetAllProductsQuery } from "@/redux/features/Products/productsApi";
+import { TProduct } from "@/types/Product";
+import Loader from "@/components/Loader";
 
 const Products = () => {
+  const { data: products, isLoading } = useGetAllProductsQuery(undefined);
 
-    const {data: Products, isLoading} = useGetAllProductsQuery(undefined);
+  if (isLoading) return <Loader/>;
 
-    if(isLoading) return <p>Loading....</p>
-    console.log(Products);
   return (
-    <div>
-      <h1>This is the Products component</h1>
+    <div className="px-5 md:px-0 my-10">
+      <div className="md:container">
+        <h1 className="mb-8 text-xl md:text-2xl font-bold text-center">Our Keyboards</h1>
+        <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-20">
+          {products?.data.map((product: TProduct, index: number) => (
+            <motion.div
+              key={product._id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <ProductCard product={product} />
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Products;
- 

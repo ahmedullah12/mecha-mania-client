@@ -52,7 +52,7 @@ const Advertisement = () => {
         animate="visible"
       >
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Why Shop With Us?</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">Why Shop With Us?</h2>
           <p className="text-lg text-gray-600">Discover the benefits and services we offer.</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">

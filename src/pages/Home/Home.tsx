@@ -1,5 +1,6 @@
 import Advertisement from "./Advertisement";
 import Banner from "./Banner";
+import ChooseMechanicalKeyboards from "./ChooseMechanicalKeyboard";
 import PopularBrands from "./PopularBrands";
 import Products from "./Products";
 import Reviews from "./Reviews";
@@ -13,6 +14,7 @@ const Home = () => {
       <Products/>
       <PopularBrands/>
       <Reviews/>
+      <ChooseMechanicalKeyboards/>
     </div>
   );
 };

@@ -9,7 +9,7 @@ const Reviews = () => {
     <div className="my-10 md:my-20">
       <h1 className="mb-6 text-xl md:text-2xl text-center font-bold">Our Customer Reviews</h1>
 
-     <div className="md:container px-5 md:px-10">
+     <div className="md:container px-16 md:px-10">
      <Carousel
         opts={{
           align: "start",

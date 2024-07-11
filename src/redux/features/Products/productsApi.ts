@@ -4,6 +4,7 @@ const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
       query: ({ searchTerm, minPrice, maxPrice, sort }) => {
+        //adding query fields for filters
         const params = new URLSearchParams();
         if (searchTerm) params.append("searchTerm", searchTerm);
         if (minPrice !== undefined)

@@ -32,7 +32,7 @@ const footerIcons = [
 
 const Footer = () => {
   return (
-    <footer className="bg-[#F6F6F6] py-10">
+    <footer className="bg-[#F6F6F6] py-10 mt-auto">
       <div className="md:container">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between">

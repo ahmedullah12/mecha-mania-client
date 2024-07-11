@@ -1,4 +1,5 @@
 import App from "@/App";
+import ContactUs from "@/pages/ContactUs/ContactUs";
 import Home from "@/pages/Home/Home";
 import Products from "@/pages/Product/Products";
 import ProductDetails from "@/pages/ProductDetails/ProductDetails";
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
             {
                 path: "product/:id",
                 element: <ProductDetails/>
+            },
+            {
+                path: "contact-us",
+                element: <ContactUs/>
             }
         ]
     }

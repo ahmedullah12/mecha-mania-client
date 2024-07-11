@@ -34,7 +34,7 @@ const Banner = () => {
         initial="hidden"
         animate="visible"
       >
-        <div className="flex flex-col lg:flex-row items-center justify-between">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-6">
           <div className="text-center lg:text-left lg:max-w-xl mb-8 lg:mb-0">
             <motion.h1
               className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-800 leading-tight"
@@ -57,8 +57,15 @@ const Banner = () => {
               or a keyboard enthusiast, discover unmatched quality and
               performance.
             </motion.p>
-            <motion.div className="flex justify-center lg:justify-start">
-              <PrimaryButton value="Explore Now" link={`/products`} Icon={FaArrowRight}/>
+            <motion.div
+              variants={itemVariants}
+              className="flex justify-center lg:justify-start"
+            >
+              <PrimaryButton
+                value="Explore Now"
+                link={`/products`}
+                Icon={FaArrowRight}
+              />
             </motion.div>
           </div>
           <motion.div
@@ -69,7 +76,7 @@ const Banner = () => {
             <img
               src="https://i.ibb.co/Px922PH/top-view-white-keyboard-with-lights-2.jpg"
               alt="Mechanical Keyboard"
-              className="max-w-[500px] rounded-lg shadow-2xl relative z-10"
+              className="w-[300px] md:w-[500px] lg:w-[600px] rounded-lg shadow-2xl relative z-10"
             />
           </motion.div>
         </div>

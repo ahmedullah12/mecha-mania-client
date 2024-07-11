@@ -26,7 +26,7 @@ export default function Navbar() {
   return (
     <nav className="bg-[#287094] w-full fixed top-0 z-50 h-16">
       <div className="lg:container relative items-center px-4 md:flex md:justify-between">
-        <div className="pt-2 md:pt-3 md:pb-5 flex items-center justify-between">
+        <div className="pt-2 md:pt-3 md:pb-5 relative flex items-center justify-between">
           <Link to="/" className="text-2xl md:text-3xl text-white font-semibold">
             Ahmed
           </Link>
@@ -64,8 +64,8 @@ export default function Navbar() {
           </div>
         </div>
         <div
-          className={`md:hidden mt-2 bg-white fixed left-0 right-0 transition-all duration-300 ease-in-out ${
-            state ? "opacity-100" : "opacity-0"
+          className={`block md:hidden mt-2 bg-white fixed left-0 right-0 transition-all duration-300 ease-in-out ${
+            state ? "top-[56px] opacity-100" : "top-[-420px] opacity-0"
           }`}
         >
           <ul className="ps-4 space-y-4">

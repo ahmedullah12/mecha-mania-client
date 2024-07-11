@@ -6,8 +6,10 @@ const productsApi = baseApi.injectEndpoints({
       query: ({ searchTerm, minPrice, maxPrice, sort }) => {
         const params = new URLSearchParams();
         if (searchTerm) params.append("searchTerm", searchTerm);
-        if (minPrice !== undefined) params.append("minPrice", minPrice.toString());
-        if (maxPrice !== undefined) params.append("maxPrice", maxPrice.toString());
+        if (minPrice !== undefined)
+          params.append("minPrice", minPrice.toString());
+        if (maxPrice !== undefined)
+          params.append("maxPrice", maxPrice.toString());
         if (sort) params.append("sort", sort);
 
         return {
@@ -16,7 +18,13 @@ const productsApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getSingleProduct: builder.query({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery } = productsApi;
+export const { useGetAllProductsQuery, useGetSingleProductQuery } = productsApi;

@@ -1,6 +1,8 @@
 import App from "@/App";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 import About from "@/pages/About/About";
 import ContactUs from "@/pages/ContactUs/ContactUs";
+import Dashboard from "@/pages/Dashboard/Dashboard";
 import Home from "@/pages/Home/Home";
 import Products from "@/pages/Product/Products";
 import ProductDetails from "@/pages/ProductDetails/ProductDetails";
@@ -30,6 +32,16 @@ const router = createBrowserRouter([
             {
                 path: "contact-us",
                 element: <ContactUs/>
+            }
+        ]
+    },
+    {
+        path: "/dashboard",
+        element: <DashboardLayout/>,
+        children: [
+            {
+                path: "",
+                element: <Dashboard/>
             }
         ]
     }

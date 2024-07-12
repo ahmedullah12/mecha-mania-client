@@ -63,7 +63,7 @@ export default function Navbar() {
             <Link to="/cart" className="relative">
               <AiOutlineShoppingCart size={30} color="white" />
               <div className="bg-white rounded-full flex items-center justify-center absolute top-[-10%] right-[-10%] w-5 h-5">
-                <span className="text-xs text-[#EC873E]">0</span>
+                <span className="text-xs text-primary">0</span>
               </div>
             </Link>
           </div>

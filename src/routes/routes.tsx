@@ -1,6 +1,7 @@
 import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import About from "@/pages/About/About";
+import AddNewProduct from "@/pages/AddNewProduct/AddNewProduct";
 import ContactUs from "@/pages/ContactUs/ContactUs";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import Home from "@/pages/Home/Home";
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: "",
                 element: <Dashboard/>
+            },
+            {
+                path: "add-new-product",
+                element: <AddNewProduct/>
             }
         ]
     }

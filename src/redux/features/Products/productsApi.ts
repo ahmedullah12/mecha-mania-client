@@ -2,6 +2,14 @@ import baseApi from "@/redux/api/baseApi";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    addProduct: builder.mutation({
+      query: (product) => ({
+        url: "/products/create-product",
+        method: "POST",
+        body: product,
+      }),
+      invalidatesTags: ["Products"],
+    }),
     getAllProducts: builder.query({
       query: ({ searchTerm, minPrice, maxPrice, sort }) => {
         //adding query fields for filters
@@ -18,6 +26,7 @@ const productsApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["Products"],
     }),
     getSingleProduct: builder.query({
       query: (id) => ({
@@ -25,7 +34,19 @@ const productsApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Products"],
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useGetSingleProductQuery } = productsApi;
+export const {
+  useGetAllProductsQuery,
+  useGetSingleProductQuery,
+  useDeleteProductMutation,
+  useAddProductMutation,
+} = productsApi;

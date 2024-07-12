@@ -30,18 +30,6 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.6, -0.05, 0.01, 0.99],
-    },
-  },
-};
-
 const Advertisement = () => {
   return (
     <div className="py-12">
@@ -52,20 +40,29 @@ const Advertisement = () => {
         animate="visible"
       >
         <div className="text-center mb-12">
-          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">Why Shop With Us?</h2>
-          <p className="text-lg text-gray-600">Discover the benefits and services we offer.</p>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">
+            Why Shop With Us?
+          </h2>
+          <p className="text-lg text-gray-600">
+            Discover the benefits and services we offer.
+          </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {benefits.map((benefit, index) => (
             <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
               key={index}
               className="p-6 bg-white rounded-lg shadow-md text-center transition-transform transform hover:-translate-y-1 hover:shadow-lg"
-              variants={itemVariants}
             >
               <div className="flex justify-center items-center mb-4">
                 {benefit.icon}
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">{benefit.title}</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                {benefit.title}
+              </h3>
               <p className="text-gray-600">{benefit.description}</p>
             </motion.div>
           ))}

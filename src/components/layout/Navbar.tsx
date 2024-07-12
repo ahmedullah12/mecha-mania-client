@@ -27,8 +27,11 @@ export default function Navbar() {
     <nav className="bg-[#287094] w-full fixed top-0 z-50 h-16">
       <div className="lg:container relative items-center px-4 md:flex md:justify-between">
         <div className="pt-2 md:pt-3 md:pb-5 relative flex items-center justify-between">
-          <Link to="/" className="text-2xl md:text-3xl text-white font-semibold">
-            Ahmed
+          <Link
+            to="/"
+            className="text-2xl md:text-3xl text-white font-semibold"
+          >
+            MechaMania
           </Link>
           <div className="md:hidden">
             <Hamburger color="white" toggled={state} toggle={setState} />
@@ -57,10 +60,12 @@ export default function Navbar() {
             </ul>
           </div>
           <div className="flex items-center space-x-3 relative">
-            <AiOutlineShoppingCart size={30} color="white" />
-            <div className="bg-white rounded-full flex items-center justify-center absolute top-[-10%] right-[-10%] w-5 h-5">
-              <span className="text-xs text-[#EC873E]">0</span>
-            </div>
+            <Link to="/cart" className="relative">
+              <AiOutlineShoppingCart size={30} color="white" />
+              <div className="bg-white rounded-full flex items-center justify-center absolute top-[-10%] right-[-10%] w-5 h-5">
+                <span className="text-xs text-[#EC873E]">0</span>
+              </div>
+            </Link>
           </div>
         </div>
         <div
@@ -75,20 +80,23 @@ export default function Navbar() {
                   className={({ isActive }) =>
                     `${
                       isActive ? activeLink : ""
-                    } block px-3 py-2 transition-all duration-700 ease-in-out rounded`
+                    } px-3 py-2 flex items-center gap-x-3 transition-all duration-700 ease-in-out rounded`
                   }
                   to={item.path}
                 >
+                  {item.icon}
                   {item.title}
                 </NavLink>
               </li>
             ))}
           </ul>
-          <div className="ps-4 flex justify-between items-center relative">
-            <AiOutlineShoppingCart size={30} />
-            <div className="bg-[#EC873E] rounded-full flex items-center justify-center absolute top-[-10%] right-[-10%] w-5 h-5">
-              <span className="text-xs text-white">0</span>
-            </div>
+          <div className="mt-3 ms-2 flex justify-between items-center relative px-4">
+            <Link to="/cart" className="relative">
+              <AiOutlineShoppingCart size={30} />
+              <div className="bg-[#EC873E] rounded-full flex items-center justify-center absolute top-[-10%] right-[-10%] w-4 h-4">
+                <span className="text-xs text-white">0</span>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

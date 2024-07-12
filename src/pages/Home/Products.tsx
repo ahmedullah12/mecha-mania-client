@@ -17,21 +17,28 @@ const Products = () => {
   return (
     <div className="px-5 md:px-0 my-10">
       <div className="md:container">
-        <h1 className="mb-8 text-xl md:text-2xl font-bold text-center">Our Keyboards</h1>
+        <h1 className="mb-8 text-xl md:text-2xl font-bold text-center">
+          Our Keyboards
+        </h1>
         <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-20">
-          {latestProducts.map((product: TProduct, index: number) => (
+          {latestProducts.map((product: TProduct) => (
             <motion.div
               key={product._id}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ bounce: 0.5, duration: 1 }}
+              viewport={{ once: true }}
             >
               <ProductCard product={product} />
             </motion.div>
           ))}
         </div>
         <div className="mt-10 mb-6 flex justify-center">
-          <PrimaryButton value="See More" link="/products" Icon={FaArrowRight} />
+          <PrimaryButton
+            value="See More"
+            link="/products"
+            Icon={FaArrowRight}
+          />
         </div>
       </div>
     </div>

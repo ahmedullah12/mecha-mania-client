@@ -4,7 +4,7 @@ import ProductCard from "@/components/Product/ProductCard";
 import { useGetAllProductsQuery } from "@/redux/features/Products/productsApi";
 import { TProduct } from "@/types/Product";
 import { motion } from "framer-motion";
-import { debounce } from "lodash";
+import { Button } from "@/components/ui/button";
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,18 +12,23 @@ const Products = () => {
   const [sort, setSort] = useState("");
   const [query, setQuery] = useState({});
 
-  const debouncedSearchTerm = debounce((value: string) => {
-    setQuery((prev) => ({ ...prev, searchTerm: value }));
-  }, 500);
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setQuery((prev) => ({ ...prev, searchTerm }));
+    }, 1000);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [searchTerm]);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedSearchTerm(value);
+    setSearchTerm(e.target.value);
   };
 
+  // setting the min and max price and sort in query for filter and sort
   useEffect(() => {
-    const [minPrice, maxPrice] = priceRange.split('-').map(Number);
+    const [minPrice, maxPrice] = priceRange.split("-").map(Number);
     setQuery((prev) => ({
       ...prev,
       minPrice: minPrice || undefined,
@@ -34,6 +39,7 @@ const Products = () => {
 
   const { data: products, isLoading } = useGetAllProductsQuery(query);
 
+  //clearing the state
   const handleClear = () => {
     setSearchTerm("");
     setPriceRange("");
@@ -63,45 +69,58 @@ const Products = () => {
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
           >
-            <option value="">Select Price Range</option>
-            <option value="0-50">0 - 50</option>
-            <option value="51-100">51 - 100</option>
-            <option value="101-200">101 - 200</option>
-            <option value="201-500">201 - 500</option>
-            <option value="501-1000">501 - 1000</option>
+            <option disabled value="">
+              Select Price Range
+            </option>
+            <option value="0-50">$0 - $50</option>
+            <option value="51-100">$51 - $100</option>
+            <option value="101-200">$101 - $200</option>
+            <option value="201-500">$201 - $500</option>
+            <option value="501-1000">$501 - $1000</option>
           </select>
           <select
             className="p-2 border border-gray-300 rounded-md"
             value={sort}
             onChange={(e) => setSort(e.target.value)}
           >
-            <option value="">Sort By</option>
+            <option disabled value="">
+              Sort By
+            </option>
             <option value="price">Price: Low to High</option>
             <option value="-price">Price: High to Low</option>
           </select>
           {showClearButton && (
-            <button
+            <Button
               onClick={handleClear}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+              className="px-4 py-2 rounded-md transition-colors"
             >
               Clear
-            </button>
+            </Button>
           )}
         </div>
       </div>
 
-      <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {products?.data.map((product: TProduct, index: number) => (
-          <motion.div
-            key={product._id}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="w-full"
-          >
-            <ProductCard product={product} />
-          </motion.div>
-        ))}
+      <div>
+        {products?.data.length === 0 ? (
+          <p className="text-lg font-medium text-center">
+            No products found...
+          </p>
+        ) : (
+          <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products?.data.map((product: TProduct) => (
+              <motion.div
+                key={product._id}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ bounce: 0.5, duration: 1 }}
+                viewport={{ once: true }}
+                className="w-full"
+              >
+                <ProductCard product={product} />
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

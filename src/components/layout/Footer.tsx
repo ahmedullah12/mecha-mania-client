@@ -32,12 +32,12 @@ const footerIcons = [
 
 const Footer = () => {
   return (
-    <footer className="bg-[#F6F6F6] py-10 mt-auto">
+    <footer className="bg-secondary py-10 mt-auto">
       <div className="md:container">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between">
             <div className="max-w-[200px] mb-6 md:mb-0">
-              <h2 className="text-2xl font-bold">Ahmed</h2>
+              <h2 className="text-2xl text-primary font-bold">MechaMania</h2>
               <p className="mt-2 text-sm">
                 Providing quality mechanical keyboards for all your typing and
                 gaming needs.

@@ -75,4 +75,13 @@
   }
 }
 
-
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: white !important; /* Debug color */
+  transform-origin: 0 0;
+  z-index: 1000;
+}

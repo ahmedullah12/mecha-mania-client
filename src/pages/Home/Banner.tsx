@@ -27,7 +27,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="banner relative bg-[#F6F6F6] overflow-hidden">
+    <div className="banner relative bg-secondary overflow-hidden">
       <motion.div
         className="banner container mx-auto px-6 py-12 sm:py-16 md:py-20 lg:py-24"
         variants={containerVariants}

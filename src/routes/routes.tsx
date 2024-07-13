@@ -2,11 +2,14 @@ import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import About from "@/pages/About/About";
 import AddNewProduct from "@/pages/AddNewProduct/AddNewProduct";
+import Cart from "@/pages/Cart/Cart";
+import CheckoutPage from "@/pages/CheckoutPage/CheckoutPage";
 import ContactUs from "@/pages/ContactUs/ContactUs";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import Home from "@/pages/Home/Home";
 import Products from "@/pages/Product/Products";
 import ProductDetails from "@/pages/ProductDetails/ProductDetails";
+import SuccessPage from "@/pages/SuccessPage/SuccessPage";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
             {
                 path: "contact-us",
                 element: <ContactUs/>
+            },
+            {
+                path: "cart",
+                element: <Cart/>
+            },
+            {
+                path: "checkout",
+                element: <CheckoutPage/>
+            },
+            {
+                path: "/success-page",
+                element: <SuccessPage/>
             }
         ]
     },

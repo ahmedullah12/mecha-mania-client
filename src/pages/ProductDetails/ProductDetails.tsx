@@ -1,13 +1,27 @@
 import Loader from "@/components/Loader";
-import { useGetSingleProductQuery } from "@/redux/features/Products/productsApi";
+import {
+  useGetSingleProductQuery,
+} from "@/redux/features/Products/productsApi";
 import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { FaArrowRight } from "react-icons/fa6";
+import { addToCart } from "@/redux/features/Cart/cartSlice";
+import { useAppDispatch } from "@/redux/hook";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { data: product, isLoading } = useGetSingleProductQuery(id);
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = async () => {
+    if (product?.data.quantity === 0) {
+      return toast.error("Product is out of stock");
+    }
+    await dispatch(addToCart(product?.data));
+    toast.success("Product added to cart successfully!!!");
+  };
 
   if (isLoading) return <Loader />;
 
@@ -18,18 +32,20 @@ const ProductDetails = () => {
           <img
             src={product?.data?.imageUrl}
             alt={product?.data?.title}
-            className="object-cover w-[300px] md:w-[400px] lg:w-[500px] md:h-full rounded"
+            className="object-cover mx-auto w-[300px] md:w-[400px] lg:w-[500px] md:h-full rounded"
           />
         </div>
         <div className="p-6 md:w-1/2">
           <h1 className="text-3xl font-bold mb-2">{product?.data?.title}</h1>
           <h2 className="text-xl text-gray-700 mb-4">{product?.data?.brand}</h2>
           <div className="mb-4">
-            <span className="text-xl font-bold text-gray-900">${product?.data?.price}</span>
+            <span className="text-xl font-bold text-gray-900">
+              ${product?.data?.price}
+            </span>
           </div>
           <div className="my-2">
-          <span className="text-sm text-gray-600">
-              Quantity: {product?.data?.quantity} in stock
+            <span className="text-sm text-gray-600">
+              Quantity: {product?.data.quantity} in stock
             </span>
           </div>
           <div className="flex items-center mb-4">
@@ -37,15 +53,25 @@ const ProductDetails = () => {
               <FaStar
                 key={index}
                 className={`h-5 w-5 ${
-                  index < product?.data?.rating ? "text-yellow-400" : "text-gray-300"
+                  index < product?.data?.rating
+                    ? "text-yellow-400"
+                    : "text-gray-300"
                 }`}
               />
             ))}
-            <span className="ms-3 font-semibold" >({product?.data?.rating})</span>
+            <span className="ms-3 font-semibold">
+              ({product?.data?.rating})
+            </span>
           </div>
           <p className="text-gray-700 mb-6">{product?.data?.description}</p>
-          <Button className="bg-primary text-white px-4 py-2 rounded transition duration-300 ">
-            Add to Cart <span className="ms-4"><FaArrowRight size={18}/></span>
+          <Button
+            onClick={handleAddToCart}
+            className="bg-primary text-white px-4 py-2 rounded transition duration-300 "
+          >
+            Add to Cart{" "}
+            <span className="ms-4">
+              <FaArrowRight size={18} />
+            </span>
           </Button>
         </div>
       </div>

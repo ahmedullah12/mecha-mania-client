@@ -3,9 +3,11 @@ import { Link, NavLink } from "react-router-dom";
 import { Cross as Hamburger } from "hamburger-react";
 import { Menus } from "@/utils/menuData";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { useAppSelector } from "@/redux/hook";
 
 export default function Navbar() {
   const [state, setState] = useState(false);
+  const {cart} = useAppSelector((state) => state.cart)
 
   useEffect(() => {
     const handleResize = () => {
@@ -63,7 +65,7 @@ export default function Navbar() {
             <Link to="/cart" className="relative">
               <AiOutlineShoppingCart size={30} color="white" />
               <div className="bg-white rounded-full flex items-center justify-center absolute top-[-10%] right-[-10%] w-5 h-5">
-                <span className="text-xs text-primary">0</span>
+                <span className="text-xs text-primary">{cart.length}</span>
               </div>
             </Link>
           </div>
@@ -94,7 +96,7 @@ export default function Navbar() {
             <Link to="/cart" className="relative">
               <AiOutlineShoppingCart size={30} />
               <div className="bg-[#EC873E] rounded-full flex items-center justify-center absolute top-[-10%] right-[-10%] w-4 h-4">
-                <span className="text-xs text-white">0</span>
+                <span className="text-xs text-white">{cart.length}</span>
               </div>
             </Link>
           </div>

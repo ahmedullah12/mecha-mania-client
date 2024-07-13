@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDropzone, FileRejection } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { useAddProductMutation } from "@/redux/features/Products/productsApi";
 import toast from "react-hot-toast";
@@ -19,7 +19,7 @@ const AddNewProduct = () => {
   const navigate = useNavigate();
 
   const onDrop = useCallback(
-    (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+    (acceptedFiles: File[]) => {
       const latestImage = acceptedFiles[0];
       if (latestImage && latestImage.type.startsWith("image/")) {
         setAcceptedImage(latestImage);

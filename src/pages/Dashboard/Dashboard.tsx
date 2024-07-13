@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import UpdateProductModal from "@/components/UpdateProductModal";
 import { useGetAllProductsQuery } from "@/redux/features/Products/productsApi";
 import { TProduct } from "@/types/Product";
 import { Link } from "react-router-dom";
@@ -48,9 +49,7 @@ const Dashboard = () => {
                 <TableCell>{product.brand}</TableCell>
                 <TableCell className="text-right">
                   <>
-                    <button className="px-2 py-1 bg-green-500 text-white rounded-lg mr-0 md:mr-4">
-                      update
-                    </button>
+                   <UpdateProductModal product={product}/>
                     <ConfirmDeleteModal
                       product={{ title: product.title, id: product._id }}
                     />

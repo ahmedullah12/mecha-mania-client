@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDropzone, FileRejection } from "react-dropzone";
@@ -5,38 +6,36 @@ import axios from "axios";
 import { useAddProductMutation } from "@/redux/features/Products/productsApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { TProductFormData } from "@/types/Product";
 
-interface ProductFormData {
-  title: string;
-  price: number;
-  description: string;
-  quantity: number;
-  rating: number;
-  brand: string;
-}
+
 
 const AddNewProduct = () => {
   const [acceptedImage, setAcceptedImage] = useState<File | null>(null);
-  const { register, handleSubmit } = useForm<ProductFormData>();
+  const [loading, setLoading] = useState(false);
+  const { register, handleSubmit } = useForm<TProductFormData>();
 
   const [addProduct] = useAddProductMutation();
   const navigate = useNavigate();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
-    const latestImage = acceptedFiles[0];
-    if (latestImage && latestImage.type.startsWith("image/")) {
-      setAcceptedImage(latestImage);
-    } else {
-      alert("Please upload an image file.");
-    }
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+      const latestImage = acceptedFiles[0];
+      if (latestImage && latestImage.type.startsWith("image/")) {
+        setAcceptedImage(latestImage);
+      } else {
+        alert("Please upload an image file.");
+      }
+    },
+    []
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
 
-  const onSubmit = async (data: ProductFormData) => {
+  const onSubmit = async (data: TProductFormData) => {
+    setLoading(true);
     if (acceptedImage) {
       const formData = new FormData();
       formData.append("image", acceptedImage);
@@ -46,13 +45,13 @@ const AddNewProduct = () => {
 
       try {
         const res = await axios.post(imgbbUrl, formData);
-        if(res.data.status === 200){
-            const productData = {...data, imageUrl: res.data.data.url}
-            const result = await addProduct(productData);
-            if(result.data.success === true){
-                toast.success("Product added successfully");
-                navigate("/dashboard")
-            }
+        if (res.data.status === 200) {
+          const productData = { ...data, imageUrl: res.data.data.url };
+          const result = await addProduct(productData);
+          if (result.data.success === true) {
+            toast.success("Product added successfully");
+            navigate("/dashboard");
+          }
         }
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -60,6 +59,7 @@ const AddNewProduct = () => {
     } else {
       alert("Please select an image file to upload.");
     }
+    setLoading(false);
   };
 
   return (
@@ -79,14 +79,11 @@ const AddNewProduct = () => {
           </div>
           <div className="mb-4">
             <label className="block text-primary text-sm font-bold mb-2">
-              Price
+              Brand
             </label>
             <input
-              type="number"
-              {...register("price", {
-                required: "Price is required",
-                valueAsNumber: true,
-              })}
+              type="text"
+              {...register("brand", { required: "Brand is required" })}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -101,6 +98,21 @@ const AddNewProduct = () => {
               className="shadow resize-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline"
             ></textarea>
           </div>
+          <div className="mb-4">
+            <label className="block text-primary text-sm font-bold mb-2">
+              Price
+            </label>
+            <input
+              type="number"
+              step={0.01}
+              {...register("price", {
+                required: "Price is required",
+                valueAsNumber: true,
+              })}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
           <div className="mb-4">
             <label className="block text-primary text-sm font-bold mb-2">
               Available Quantity
@@ -120,6 +132,7 @@ const AddNewProduct = () => {
             </label>
             <input
               type="number"
+              step={0.01}
               {...register("rating", {
                 required: "Rating is required",
                 valueAsNumber: true,
@@ -140,7 +153,9 @@ const AddNewProduct = () => {
                 {isDragActive ? (
                   <p className="text-sm">Drop the files here ...</p>
                 ) : (
-                  <p className="text-sm">Drag 'n' drop some files here, or click to select image</p>
+                  <p className="text-sm">
+                    Drag 'n' drop some files here, or click to select image
+                  </p>
                 )}
               </div>
               {acceptedImage && (
@@ -153,22 +168,16 @@ const AddNewProduct = () => {
               )}
             </div>
           </div>
-          <div className="mb-4">
-            <label className="block text-primary text-sm font-bold mb-2">
-              Brand
-            </label>
-            <input
-              type="text"
-              {...register("brand", { required: "Brand is required" })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </div>
+
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                loading ? "cursor-not-allowed opacity-50" : ""
+              }`}
+              disabled={loading}
             >
-              Add Product
+              {loading ? "Adding Product..." : "Add Product"}
             </button>
           </div>
         </form>

@@ -55,7 +55,7 @@ const Products = () => {
     <div className="md:container mx-auto px-4 py-8">
       <h1 className="text-xl md:text-2xl font-bold mb-6">All Products</h1>
 
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+      <div className="flex flex-col md:flex-row justify-normal md:justify-between md:items-center mb-8 gap-4">
         <input
           type="text"
           placeholder="Search products..."
@@ -63,9 +63,9 @@ const Products = () => {
           value={searchTerm}
           onChange={handleSearchChange}
         />
-        <div className="flex gap-4 w-full md:w-auto items-center">
+        <div className="flex gap-4 md:w-auto items-center">
           <select
-            className="p-2 border border-gray-300 rounded-md"
+            className="p-2 w-[100px] md:w-[200px] border border-gray-300 rounded-md"
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
           >
@@ -79,7 +79,7 @@ const Products = () => {
             <option value="501-1000">$501 - $1000</option>
           </select>
           <select
-            className="p-2 border border-gray-300 rounded-md"
+            className="p-2 w-[100px] md:w-[200px] border border-gray-300 rounded-md"
             value={sort}
             onChange={(e) => setSort(e.target.value)}
           >
@@ -106,7 +106,7 @@ const Products = () => {
             No products found...
           </p>
         ) : (
-          <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products?.data.map((product: TProduct) => (
               <motion.div
                 key={product._id}

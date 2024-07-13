@@ -44,10 +44,10 @@ const Dashboard = () => {
           <TableBody>
             {products?.data?.map((product: TProduct) => (
               <TableRow key={product._id}>
-                <TableCell className="font-medium">{product.title}</TableCell>
-                <TableCell>${product.price}</TableCell>
-                <TableCell>{product.brand}</TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-sm md:text-base font-medium">{product.title}</TableCell>
+                <TableCell className="text-sm md:text-base">${product.price}</TableCell>
+                <TableCell className="text-sm md:text-base">{product.brand}</TableCell>
+                <TableCell className="text-sm md:text-base text-right">
                   <>
                    <UpdateProductModal product={product}/>
                     <ConfirmDeleteModal

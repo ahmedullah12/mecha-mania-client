@@ -41,7 +41,7 @@ const UpdateProductModal = ({ product }: { product: TProduct }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="px-2 py-1 bg-green-500 text-white rounded-lg mr-0 md:mr-4">
+        <button className="px-2 py-1 bg-green-500 text-white rounded-lg mr-0 md:mr-4 mb-2 md:mb-0">
           update
         </button>
       </DialogTrigger>

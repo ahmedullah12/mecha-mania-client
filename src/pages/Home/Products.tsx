@@ -12,10 +12,9 @@ const Products = () => {
   if (isLoading) return <Loader />;
 
   //limiting the data and showing the latest on first
-  
-  console.log(products.data);
-  const latestProducts = products?.data.slice(0,6).reverse();
-
+  const latestProducts = Array.isArray(products?.data)
+    ? [...products.data].sort((a, b) => b.createdAt - a.createdAt).slice(0, 6)
+    : [];
   return (
     <div className="px-5 md:px-0 my-10">
       <div className="md:container">

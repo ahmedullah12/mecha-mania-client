@@ -60,7 +60,7 @@ const Footer = () => {
               <Link to="/about" className="hover:underline">
                 About Us
               </Link>
-              <Link to="/contact" className="hover:underline">
+              <Link to="/contact-us" className="hover:underline">
                 Contact
               </Link>
             </div>

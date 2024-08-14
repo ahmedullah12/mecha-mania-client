@@ -4,13 +4,16 @@ import ProductCard from "@/components/Product/ProductCard";
 import { useGetAllProductsQuery } from "@/redux/features/Products/productsApi";
 import { TProduct } from "@/types/Product";
 import { motion } from "framer-motion";
+import ProductsFilterModal from "@/components/ProductsFilterModal";
 import { Button } from "@/components/ui/button";
+import { FilterIcon } from "lucide-react";
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [sort, setSort] = useState("");
   const [query, setQuery] = useState({});
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -39,6 +42,9 @@ const Products = () => {
 
   const { data: products, isLoading } = useGetAllProductsQuery(query);
 
+  const handleToggleFilters = () => {
+    setShowFilters(!showFilters);
+  };
   //clearing the state
   const handleClear = () => {
     setSearchTerm("");
@@ -64,39 +70,19 @@ const Products = () => {
           value={searchTerm}
           onChange={handleSearchChange}
         />
-        <div className="flex gap-4 md:w-auto items-center">
-          <select
-            className="p-2 w-[100px] md:w-[200px] border border-gray-300 rounded-md"
-            value={priceRange}
-            onChange={(e) => setPriceRange(e.target.value)}
-          >
-            <option disabled value="">
-              Select Price Range
-            </option>
-            <option value="0-50">$0 - $50</option>
-            <option value="51-100">$51 - $100</option>
-            <option value="101-200">$101 - $200</option>
-            <option value="201-500">$201 - $500</option>
-            <option value="501-1000">$501 - $1000</option>
-          </select>
-          <select
-            className="p-2 w-[100px] md:w-[200px] border border-gray-300 rounded-md"
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-          >
-            <option disabled value="">
-              Sort By
-            </option>
-            <option value="price">Price: Low to High</option>
-            <option value="-price">Price: High to Low</option>
-          </select>
-          {showClearButton && (
-            <Button
-              onClick={handleClear}
-              className="px-4 py-2 rounded-md transition-colors"
-            >
-              Clear
-            </Button>
+        <div className="relative">
+          <Button onClick={handleToggleFilters}>
+            <FilterIcon size={18} />
+          </Button>
+          {showFilters && (
+            <ProductsFilterModal
+              priceRange={priceRange}
+              setPriceRange={setPriceRange}
+              sort={sort}
+              setSort={setSort}
+              showClearButton={showClearButton}
+              handleClear={handleClear}
+            />
           )}
         </div>
       </div>

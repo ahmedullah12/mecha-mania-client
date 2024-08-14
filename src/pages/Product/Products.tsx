@@ -55,6 +55,7 @@ const Products = () => {
     <div className="md:container mx-auto px-4 py-8">
       <h1 className="text-xl md:text-2xl font-bold mb-6">All Products</h1>
 
+      {/* show the filter fields when click the filter button */}
       <div className="flex flex-col md:flex-row justify-normal md:justify-between md:items-center mb-8 gap-4">
         <input
           type="text"

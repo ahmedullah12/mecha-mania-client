@@ -22,7 +22,7 @@ const Reviews = () => {
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ bounce: 0.5, duration: 1 }}
         viewport={{ once: true }}
-        className="md:container px-16 md:px-10"
+        className="md:container px-16 md:px-[50px]"
       >
         <Carousel
           opts={{
@@ -33,27 +33,27 @@ const Reviews = () => {
           <CarouselContent>
             {reviewsData.map((data, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="p-1">
-                  <Card>
-                    <CardContent className="flex flex-col items-center p-6">
-                      <div className="w-16 h-16 rounded-full overflow-hidden mb-4">
+                <div className="p-1 h-full">
+                  <Card className="h-full">
+                    <CardContent className="flex flex-col items-center p-6 h-full">
+                      <div className="w-16 h-16 rounded-full overflow-hidden mb-4 flex-shrink-0">
                         <img
                           src={data.userImg}
                           alt={data.userName}
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <span className="text-lg font-semibold mb-2">
+                      <span className="text-lg font-semibold mb-2 flex-shrink-0">
                         {data.userName}
                       </span>
-                      <div className="flex items-center mb-2">
+                      <div className="flex items-center mb-2 flex-shrink-0">
                         <BsStarFill size={18} color="gold" />
                         <BsStarFill size={18} color="gold" />
                         <BsStarFill size={18} color="gold" />
                         <BsStarFill size={18} color="gold" />
                         <BsStarHalf size={18} color="gold" />
                       </div>
-                      <p className="text-center">{data.texts}</p>
+                      <p className="text-center overflow-y-auto flex-grow">{data.texts}</p>
                     </CardContent>
                   </Card>
                 </div>

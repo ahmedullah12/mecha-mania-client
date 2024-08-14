@@ -29,7 +29,7 @@ const ProductCard = ({ product }: ProductParams) => {
         </div>
       </div>
       <CardHeader className="p-4">
-        <CardTitle className="text-xl font-bold text-gray-900">
+        <CardTitle className="text-base font-bold text-gray-900">
           {product.title}
         </CardTitle>
         <CardDescription className="text-sm text-gray-500">

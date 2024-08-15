@@ -6,22 +6,31 @@ import { Link } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { ReactNode, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-
+import { useCreateUserMutation } from "@/redux/features/auth/authApi";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [createUser] = useCreateUserMutation();
 
-  const {register, handleSubmit, formState: {errors}} = useForm();
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    
-    console.log(data);
-  }
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      await createUser(data);
+    } catch (err: any) {
+      console.log(err);
+      toast.error(err.message);
+    }
+  };
 
   return (
     <div className="min-h-[calc(100vh-64px)] px-4 flex justify-center items-center bg-accent">
@@ -50,10 +59,12 @@ const SignUp = () => {
                 type="text"
                 placeholder="Enter your name"
                 className="mt-1 w-full"
-                {...register("name", {required: "Name is required"})}
+                {...register("name", { required: "Name is required" })}
               />
               {errors.name && (
-                <p className="text-red-500 text-sm mt-1">{errors?.name?.message as ReactNode}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors?.name?.message as ReactNode}
+                </p>
               )}
             </div>
             <div>
@@ -68,10 +79,12 @@ const SignUp = () => {
                 type="email"
                 placeholder="Enter your email"
                 className="mt-1 w-full"
-                {...register("email", {required: "Email is required"})}
+                {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
-                <p className="text-red-500 text-sm mt-1">{errors?.email?.message as ReactNode}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors?.email?.message as ReactNode}
+                </p>
               )}
             </div>
             <div>
@@ -91,12 +104,13 @@ const SignUp = () => {
                     required: "Password is required",
                     minLength: {
                       value: 8,
-                      message: "Password must be at least 8 characters long"
+                      message: "Password must be at least 8 characters long",
                     },
                     pattern: {
                       value: /^(?=.*[0-9!@#$%^&*])(?=.{8,})/,
-                      message: "Password must contain at least one number or special character"
-                    }
+                      message:
+                        "Password must contain at least one number or special character",
+                    },
                   })}
                 />
                 <button

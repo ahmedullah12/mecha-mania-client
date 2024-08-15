@@ -4,10 +4,11 @@ import { Cross as Hamburger } from "hamburger-react";
 import { Menus } from "@/utils/menuData";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useAppSelector } from "@/redux/hook";
+import { LogIn } from "lucide-react";
 
 export default function Navbar() {
   const [state, setState] = useState(false);
-  const {cart} = useAppSelector((state) => state.cart)
+  const { cart } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,12 +62,19 @@ export default function Navbar() {
               ))}
             </ul>
           </div>
-          <div className="flex items-center space-x-3 relative">
+          <div className="flex items-center space-x-4 relative">
             <Link to="/cart" className="relative">
               <AiOutlineShoppingCart size={30} color="white" />
               <div className="bg-white rounded-full flex items-center justify-center absolute top-[-10%] right-[-10%] w-5 h-5">
                 <span className="text-xs text-primary">{cart.length}</span>
               </div>
+            </Link>
+            <Link
+              to="/login"
+              className="bg-white px-2 py-1 rounded flex items-center gap-1 text-primary font-semibold text-sm lg:text-base"
+            >
+              Login
+              <LogIn />
             </Link>
           </div>
         </div>
@@ -92,12 +100,19 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <div className="mt-3 ms-2 flex justify-between items-center relative px-4">
+          <div className="mt-3 ms-2  px-4 pb-3 flex justify-between items-center relative">
             <Link to="/cart" className="relative">
               <AiOutlineShoppingCart size={30} />
               <div className="bg-[#EC873E] rounded-full flex items-center justify-center absolute top-[-10%] right-[-10%] w-4 h-4">
                 <span className="text-xs text-white">{cart.length}</span>
               </div>
+            </Link>
+            <Link
+              to="/login"
+              className="bg-primary px-2 py-1 rounded flex items-center gap-1 text-white font-semibold text-sm lg:text-base"
+            >
+              Login
+              <LogIn />
             </Link>
           </div>
         </div>

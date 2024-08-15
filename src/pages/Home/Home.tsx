@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/Footer";
 import Advertisement from "./Advertisement";
 import Banner from "./Banner";
 import ChooseMechanicalKeyboards from "./ChooseMechanicalKeyboard";
@@ -7,7 +8,6 @@ import Products from "./Products";
 import Reviews from "./Reviews";
 
 const Home = () => {
-  // base url - https://assignment-4-server.vercel.app/
   return (
     <div className="">
       <Banner/>
@@ -17,6 +17,7 @@ const Home = () => {
       <Reviews/>
       <ChooseMechanicalKeyboards/>
       <CustomizableOptions/>
+      <Footer />
     </div>
   );
 };

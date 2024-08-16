@@ -2,7 +2,7 @@ import { Label } from "@/components/ui/label";
 import authImage from "../../assets/authImage.png";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { ReactNode, useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
@@ -24,6 +24,10 @@ const Login = () => {
   const [login, { error }] = useLoginUserMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.from?.pathname || '/';
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -36,7 +40,7 @@ const Login = () => {
       const userData = verifyJwt(res.data.accessToken) as TUser;
       dispatch(setUser({user: userData, token: res.data.accessToken}));
       toast.success(res.message);
-      navigate("/");
+      navigate(from, {replace: true});
     } catch (err: any) {
       console.log(err);
       toast.error(err.message);

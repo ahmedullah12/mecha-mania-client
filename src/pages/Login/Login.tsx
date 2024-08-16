@@ -2,12 +2,16 @@ import { Label } from "@/components/ui/label";
 import authImage from "../../assets/authImage.png";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { ReactNode, useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useLoginUserMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
+import { TError } from "@/types/global";
+import verifyJwt from "@/utils/verifyJwt";
+import { useAppDispatch } from "@/redux/hook";
+import { setUser, TUser } from "@/redux/features/auth/authSlice";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,6 +22,8 @@ const Login = () => {
   } = useForm();
 
   const [login, { error }] = useLoginUserMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -25,7 +31,12 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      await login(data);
+      const res = await login(data).unwrap();
+    
+      const userData = verifyJwt(res.data.accessToken) as TUser;
+      dispatch(setUser({user: userData, token: res.data.accessToken}));
+      toast.success(res.message);
+      navigate("/");
     } catch (err: any) {
       console.log(err);
       toast.error(err.message);
@@ -34,7 +45,12 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error?.data?.message);
+      const err = error as TError;
+      if (err.data) {
+        toast.error(err.data.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
     }
   }, [error]);
   return (

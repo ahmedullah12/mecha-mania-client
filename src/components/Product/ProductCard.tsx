@@ -17,7 +17,7 @@ type ProductParams = {
 
 const ProductCard = ({ product }: ProductParams) => {
   return (
-    <Card className="w-[350px] shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:shadow-2xl">
+    <Card className="w-full lg:w-[350px] shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:shadow-2xl">
       <div className="relative">
         <img
           src={product.imageUrl}

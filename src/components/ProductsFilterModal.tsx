@@ -19,7 +19,7 @@ function ProductsFilterModal({
 }: FilterParams) {
   return (
     <div className="absolute top-[110%] right-[0%] z-10 bg-white py-2 px-6 shadow">
-      <div className="grid  gap-4 py-4">
+      <div className="grid gap-4 py-4">
         <div className="space-y-4 md:w-auto">
           <select
             className="p-2 w-[100px] md:w-[200px] border border-gray-300 rounded-md"

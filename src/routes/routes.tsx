@@ -8,10 +8,8 @@ import CheckoutPage from "@/pages/CheckoutPage/CheckoutPage";
 import ContactUs from "@/pages/ContactUs/ContactUs";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import Home from "@/pages/Home/Home";
-import Login from "@/pages/Login/Login";
 import Products from "@/pages/Product/Products";
 import ProductDetails from "@/pages/ProductDetails/ProductDetails";
-import SignUp from "@/pages/SignUp/SignUp";
 import SuccessPage from "@/pages/SuccessPage/SuccessPage";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -30,11 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "product/:id",
-        element: (
-          <ProtectedRoute>
-            <ProductDetails />
-          </ProtectedRoute>
-        ),
+        element: <ProductDetails />,
       },
       {
         path: "/about",
@@ -56,19 +50,15 @@ const router = createBrowserRouter([
         path: "/success-page",
         element: <SuccessPage />,
       },
-      {
-        path: "/sign-up",
-        element: <SignUp />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
     ],
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <ProtectedRoute>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "",

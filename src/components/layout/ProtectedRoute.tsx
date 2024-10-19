@@ -1,14 +1,13 @@
-import { useCurrentToken } from "@/redux/features/auth/authApi";
-import { useAppSelector } from "@/redux/hook";
+import { useUser } from "@clerk/clerk-react";
 import { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const token = useAppSelector(useCurrentToken);
+  const { isSignedIn } = useUser();
   const location = useLocation();
 
-  if (!token) {
-    return <Navigate to="/login" state={{from: location}}  replace={true} />;
+  if (!isSignedIn) {
+    return <Navigate to="/" state={{ from: location }} replace={true} />;
   }
 
   return children;

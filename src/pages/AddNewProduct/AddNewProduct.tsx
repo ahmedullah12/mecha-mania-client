@@ -7,6 +7,7 @@ import { useAddProductMutation } from "@/redux/features/Products/productsApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { TProductFormData } from "@/types/Product";
+import { Button } from "@/components/ui/button";
 
 
 
@@ -170,15 +171,15 @@ const AddNewProduct = () => {
           </div>
 
           <div className="flex items-center justify-center">
-            <button
+            <Button
               type="submit"
-              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+              className={` ${
                 loading ? "cursor-not-allowed opacity-50" : ""
               }`}
               disabled={loading}
             >
               {loading ? "Adding Product..." : "Add Product"}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

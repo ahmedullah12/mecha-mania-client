@@ -4,17 +4,19 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/routes.tsx";
 import { Provider } from "react-redux";
-import { persistor, store } from "./redux/store.ts";
+import { store } from "./redux/store.ts";
 import { Toaster } from "react-hot-toast";
-import { PersistGate } from "redux-persist/integration/react";
+import { ClerkProvider } from "@clerk/clerk-react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <ClerkProvider
+        publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}
+      >
         <Toaster />
         <RouterProvider router={router}></RouterProvider>
-      </PersistGate>
+      </ClerkProvider>
     </Provider>
   </React.StrictMode>
 );

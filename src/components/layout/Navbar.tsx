@@ -10,9 +10,8 @@ import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 export default function Navbar() {
   const [state, setState] = useState(false);
   const { cart } = useAppSelector((state) => state.cart);
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn } = useUser();
   const { openSignIn } = useClerk();
-  console.log(user);
 
 
   useEffect(() => {

@@ -44,7 +44,9 @@ const Dashboard = () => {
           <TableBody>
             {products?.data?.map((product: TProduct) => (
               <TableRow key={product._id}>
-                <TableCell className="text-sm md:text-base font-medium">{product.title}</TableCell>
+                <TableCell className="text-sm md:text-base font-medium hover:underline hover:text-blue-500">
+                  <Link to={`/product/${product._id}`}>{product.title}</Link>
+                </TableCell>
                 <TableCell className="text-sm md:text-base">${product.price}</TableCell>
                 <TableCell className="text-sm md:text-base">{product.brand}</TableCell>
                 <TableCell className="text-sm md:text-base text-right">

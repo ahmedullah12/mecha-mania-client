@@ -25,7 +25,7 @@ const ConfirmDeleteModal = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="px-2 py-1 bg-red-500 text-white rounded-lg">
+        <button className="px-2 py-1 bg-red-500 text-sm text-white rounded-sm">
           delete
         </button>
       </DialogTrigger>

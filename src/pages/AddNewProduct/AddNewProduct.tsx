@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { useAddProductMutation } from "@/redux/features/Products/productsApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { TProductFormData } from "@/types/Product";
 import { Button } from "@/components/ui/button";
-
-
 
 const AddNewProduct = () => {
   const [acceptedImage, setAcceptedImage] = useState<File | null>(null);
@@ -19,35 +16,27 @@ const AddNewProduct = () => {
   const [addProduct] = useAddProductMutation();
   const navigate = useNavigate();
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      const latestImage = acceptedFiles[0];
-      if (latestImage && latestImage.type.startsWith("image/")) {
-        setAcceptedImage(latestImage);
-      } else {
-        alert("Please upload an image file.");
-      }
-    },
-    []
-  );
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-  });
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setAcceptedImage(e.target.files[0]);
+    }
+  };
 
   const onSubmit = async (data: TProductFormData) => {
     setLoading(true);
     if (acceptedImage) {
       const formData = new FormData();
-      formData.append("image", acceptedImage);
+      formData.append("file", acceptedImage);
+      formData.append("upload_preset", "myCloud");
 
-      const imageHostKey = import.meta.env.VITE_IMGBB_API_KEY;
-      const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+      const cloudinaryURL = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
       try {
-        const res = await axios.post(imgbbUrl, formData);
-        if (res.data.status === 200) {
-          const productData = { ...data, imageUrl: res.data.data.url };
+        const res = await axios.post(cloudinaryURL, formData);
+        console.log(res);
+        if (res.status === 200) {
+          const productData = { ...data, imageUrl: res.data.secure_url };
           const result = await addProduct(productData);
           if (result.data.success === true) {
             toast.success("Product added successfully");
@@ -65,9 +54,10 @@ const AddNewProduct = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-[500px]">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-[700px]">
         <h2 className="text-2xl font-bold mb-6 text-center">Add New Product</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="md:grid md:grid-cols-2 gap-3">
           <div className="mb-4">
             <label className="block text-primary text-sm font-bold mb-2">
               Product Name
@@ -88,6 +78,7 @@ const AddNewProduct = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
+          </div>
           <div className="mb-4">
             <label className="block text-primary text-sm font-bold mb-2">
               Description
@@ -99,7 +90,8 @@ const AddNewProduct = () => {
               className="shadow resize-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline"
             ></textarea>
           </div>
-          <div className="mb-4">
+         <div className="md:grid md:grid-cols-2 gap-3">
+         <div className="mb-4">
             <label className="block text-primary text-sm font-bold mb-2">
               Price
             </label>
@@ -127,6 +119,7 @@ const AddNewProduct = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
+         </div>
           <div className="mb-4">
             <label className="block text-primary text-sm font-bold mb-2">
               Rating
@@ -141,39 +134,29 @@ const AddNewProduct = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-primary text-sm font-bold mb-2">
-              <span className="">Product Photo</span>
-            </label>
-            <div className="block md:flex gap-4">
-              <div
-                {...getRootProps({ className: "dropzone" })}
-                className="p-4 border-dashed border-2 border-gray-400 cursor-pointer "
-              >
-                <input {...getInputProps()} />
-                {isDragActive ? (
-                  <p className="text-sm">Drop the files here ...</p>
-                ) : (
-                  <p className="text-sm">
-                    Drag 'n' drop some files here, or click to select image
-                  </p>
-                )}
-              </div>
-              {acceptedImage && (
-                <div className="mt-0 md:mt-7">
-                  <p>
-                    <span className="text-green-600">Dropped file:</span>{" "}
-                    {acceptedImage.name}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
 
-          <div className="flex items-center justify-center">
+          <div className="min-w-fit flex-1">
+          <label className="block text-primary text-sm font-bold mb-2">
+              Product Image
+            </label>
+            <label
+              className="flex h-10 w-full ps-3 cursor-pointer items-center justify-start rounded border-2 border-default-200 text-sm text-default-500 shadow-sm transition-all duration-100 hover:border-default-400"
+              htmlFor="image"
+            >
+              {acceptedImage ? acceptedImage.name : "Image"}
+            </label>
+            <input
+              className="hidden"
+              id="image"
+              type="file"
+              onChange={handleImageChange}
+              accept="image/*"
+            />
+          </div>
+          <div className="mt-4 w-full flex items-center justify-center">
             <Button
               type="submit"
-              className={` ${
+              className={`w-full ${
                 loading ? "cursor-not-allowed opacity-50" : ""
               }`}
               disabled={loading}

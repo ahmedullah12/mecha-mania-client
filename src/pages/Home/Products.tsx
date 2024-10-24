@@ -29,6 +29,7 @@ const Products = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ bounce: 0.5, duration: 1 }}
               viewport={{ once: true }}
+              className="w-full"
             >
               <ProductCard product={product} />
             </motion.div>

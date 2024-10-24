@@ -93,7 +93,7 @@ const Products = () => {
             No products found...
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
             {products?.data.map((product: TProduct) => (
               <motion.div
                 key={product._id}

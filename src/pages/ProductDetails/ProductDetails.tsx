@@ -38,8 +38,8 @@ const ProductDetails = () => {
   return (
     <div className="md:container my-16 mx-auto px-4 py-8 shadow-lg bg-white">
       <div className="overflow-hidden flex flex-col md:flex-row">
-        <div className="md:w-1/2 ">
-        <ImageMagnifier src={imageUrl} />
+        <div className="md:w-1/2">
+        <ImageMagnifier height="400px" width="100%" src={imageUrl} />
         </div>
         <div className="p-6 md:w-1/2">
           <h1 className="text-3xl font-bold mb-2">{title}</h1>

@@ -27,71 +27,76 @@ const Cart = () => {
   };
 
   return (
-    <div className="md:container px-4">
+    <div className="md:container px-4 min-h-screen">
       {cart.length === 0 ? (
-        <div className="min-h-screen">
-          <p className="mt-5 md:mt-10 text-xl md:text-2xl font-bold text-center">
-            You haven't added any product to cart yet.
+        <div className="min-h-screen flex justify-center items-center">
+          <p className="text-xl md:text-2xl font-bold text-center">
+            You haven't added any products to the cart yet.
           </p>
         </div>
       ) : (
-        <div>
-          <p className="text-xl md:text-2xl text-center font-bold my-5">
-            Your Cart items({cart.length})
-          </p>
-          {cart.map((product) => (
-            <div
-              key={product._id}
-              className="mb-4 pe-4 bg-gray-50 block md:flex justify-between items-center shadow-md rounded-lg"
-            >
-              <div className="pt-2 md:pt-0">
-                <div className=" flex items-center gap-4 rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-10">
+          {/* Left side - Cart items */}
+          <div className="col-span-12 md:col-span-8">
+            <p className="text-xl md:text-2xl text-center md:text-left font-bold mb-5">
+              Your Cart items ({cart.length})
+            </p>
+            {cart.map((product) => (
+              <div
+                key={product._id}
+                className="mb-4 p-4 bg-gray-50 flex justify-between items-center shadow-md rounded-lg"
+              >
+                {/* Product details */}
+                <div className="flex items-center gap-4">
                   <img
-                    className="w-16 md:w-20 h-16 md:h-20 ms-2 md:ms-0 md:rounded-l-lg"
+                    className="w-16 md:w-20 h-16 md:h-20 rounded-lg"
                     src={product.imageUrl}
-                    alt=""
+                    alt={product.title}
                   />
                   <p className="text-xs md:text-base">{product.title}</p>
                 </div>
-              </div>
-              <div className="py-4 px-2 flex justify-between items-center gap-6">
-                <div className="w-[160px] md:w-[200px] flex justify-between items-center px-2 pb-2 border-b border-r border-l border-gray-200 ">
-                  <button
-                    onClick={() =>
-                      handleDecrease(product.addedProductQuantity, product._id)
-                    }
-                    className="text-red-500  focus:outline-none"
-                  >
-                    <Minus size={15}/>
-                  </button>
-                  <span className="px-4 py-1">
-                    {product.addedProductQuantity}
-                  </span>
-                  <button
-                    onClick={() => handleIncrease(product._id)}
-                    className="text-primary focus:outline-none"
-                  >
-                    <Plus size={15}/>
-                  </button>
-                </div>
-                <div>
+
+                {/* Quantity and buttons */}
+                <div className="flex items-center gap-3 md:gap-6">
+                  <div className="flex items-center px-4 py-2 border border-gray-200 rounded-lg">
+                    <button
+                      onClick={() =>
+                        handleDecrease(product.addedProductQuantity, product._id)
+                      }
+                      className="text-red-500 focus:outline-none"
+                    >
+                      <Minus size={15} />
+                    </button>
+                    <span className="px-4">{product.addedProductQuantity}</span>
+                    <button
+                      onClick={() => handleIncrease(product._id)}
+                      className="text-primary focus:outline-none"
+                    >
+                      <Plus size={15} />
+                    </button>
+                  </div>
                   <Button
-                    className="w-16 md:w-20 "
+                  size="sm"
+                    className="bg-primary"
                     onClick={() => handleRemove(product._id)}
                   >
                     Remove
                   </Button>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
-          <div className="my-6 bg-gray-50 w-[300px] p-8">
-            <p className="text-lg text-primary">
-              Total Price: <span className="font-bold">${totalPrice}</span>
+          {/* Right side - Total price and checkout */}
+          <div className="col-span-12 md:col-span-4 bg-gray-50 p-6 rounded-lg shadow-md">
+            <h3 className="text-2xl font-medium">Order Summary</h3>
+            <div className="w-full h-[1px] bg-primary my-4"></div>
+            <p className="text-lg mt-10 mb-4 flex justify-between">
+              Total Price:{" "}
+              <span className="text-primary">${totalPrice.toFixed(2)}</span>
             </p>
-            <Link to={"/checkout"}>
-              <Button className="mt-6">Checkout</Button>
+            <Link to="/checkout">
+              <Button className="w-full mt-4">Proceed to Checkout</Button>
             </Link>
           </div>
         </div>

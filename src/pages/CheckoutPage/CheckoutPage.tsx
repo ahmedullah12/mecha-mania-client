@@ -80,7 +80,7 @@ const CheckoutPage = () => {
           <div className="form-group">
             <label className="block mb-2">Delivery Address</label>
             <textarea
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded resize-none"
               {...register("address", { required: true })}
             />
           </div>

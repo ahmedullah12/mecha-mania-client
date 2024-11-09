@@ -11,9 +11,12 @@ import toast from "react-hot-toast";
 import { TProduct, TProductFormData } from "@/types/Product";
 import { useForm } from "react-hook-form";
 import { useUpdateProductMutation } from "@/redux/features/Products/productsApi";
+import useSessionToken from "@/utils/useSessionToken";
 
 const UpdateProductModal = ({ product }: { product: TProduct }) => {
   const { _id, title, brand, description, price, quantity, rating } = product;
+
+  const sessionToken = useSessionToken();
 
   const [updateProduct] = useUpdateProductMutation();
 
@@ -32,6 +35,7 @@ const UpdateProductModal = ({ product }: { product: TProduct }) => {
     const updatePayload = {
       id: _id,
       payload: data,
+      token: sessionToken,
     };
     const res = await updateProduct(updatePayload);
     if (res.data.success === true) {

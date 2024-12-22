@@ -3,10 +3,13 @@ import baseApi from "@/redux/api/baseApi";
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     addProduct: builder.mutation({
-      query: (product) => ({
+      query: ({product, token}) => ({
         url: "/products/create-product",
         method: "POST",
         body: product,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }),
       invalidatesTags: ["Products"],
     }),
@@ -35,10 +38,13 @@ const productsApi = baseApi.injectEndpoints({
       }),
     }),
     updateProduct: builder.mutation({
-      query: ({id, payload}) => ({
+      query: ({id, payload, token}) => ({
         url: `/products/${id}`,
         method: "PUT",
-        body: payload
+        body: payload,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }),
       invalidatesTags: ["Products"],
     }),

@@ -7,11 +7,14 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { TProductFormData } from "@/types/Product";
 import { Button } from "@/components/ui/button";
+import useSessionToken from "@/utils/useSessionToken";
 
 const AddNewProduct = () => {
   const [acceptedImage, setAcceptedImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm<TProductFormData>();
+
+ const sessionToken = useSessionToken();
 
   const [addProduct] = useAddProductMutation();
   const navigate = useNavigate();
@@ -24,7 +27,7 @@ const AddNewProduct = () => {
 
   const onSubmit = async (data: TProductFormData) => {
     setLoading(true);
-    if (acceptedImage) {
+    if (acceptedImage && sessionToken) {
       const formData = new FormData();
       formData.append("file", acceptedImage);
       formData.append("upload_preset", "myCloud");
@@ -37,7 +40,7 @@ const AddNewProduct = () => {
         console.log(res);
         if (res.status === 200) {
           const productData = { ...data, imageUrl: res.data.secure_url };
-          const result = await addProduct(productData);
+          const result = await addProduct({product: productData, token: sessionToken});
           if (result.data.success === true) {
             toast.success("Product added successfully");
             navigate("/dashboard");

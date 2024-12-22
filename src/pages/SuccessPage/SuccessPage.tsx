@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+// i am learning about git and practicing with this project of mine
+
 const SuccessPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -19,7 +21,10 @@ const SuccessPage = () => {
           ></path>
         </svg>
         <h2 className="text-2xl font-bold mb-2">Order Placed!</h2>
-        <p className="mb-6">Thank you for shopping with us. Your order has been successfully placed.</p>
+        <p className="mb-6">
+          Thank you for shopping with us. Your order has been successfully
+          placed.
+        </p>
         <Link to="/">
           <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
             Go to Homepage

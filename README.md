@@ -6,6 +6,11 @@
 
 MechaMania is a mechanical keyboard selling e-commerce website.
 
+## Live URL
+client-side: https://mecha-mania.vercel.app
+<br/>
+server-side: https://assignment-4-server.vercel.app
+
 ## Project Description
 
 As MechaMania is an e-commerce website its purpose is selling the best keyboards. Our mission is to provide a diverse selection of high-quality keyboards that cater to the needs of gamers, programmers, and typing enthusiasts alike. From customizable RGB lighting to ergonomic designs, we offer a variety of mechanical, wireless, and compact options to suit every preference.
